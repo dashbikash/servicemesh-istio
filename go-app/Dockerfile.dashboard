@@ -1,0 +1,13 @@
+FROM golang:alpine3.20
+
+WORKDIR /app
+COPY go.mod go.sum ./
+COPY cmd/dashboard/dashboard.go ./
+
+RUN go mod tidy
+RUN CGO_ENABLED=0 GOOS=linux go build -o /dashboard
+
+ENV PORT=8080
+EXPOSE 8080
+
+CMD ["/dashboard"]

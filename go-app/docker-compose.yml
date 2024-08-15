@@ -1,0 +1,23 @@
+version: '3'
+services:
+  goapp-dashboard:
+    image: bikashpdash/goapp-dashboard:latest
+    container_name: goapp-dashboard
+    ports:
+      - 8080:8080
+    depends_on:
+      - goapp-inventory
+      - goapp-sales
+    environment:
+      - INVENTORY_HOST=http://goapp-inventory:8081
+      - SALES_HOST=http://goapp-sales:8082
+  goapp-inventory:
+    image: bikashpdash/goapp-inventory:latest
+    container_name: goapp-inventory
+    ports:
+      - 8081:8081
+  goapp-sales:
+    image: bikashpdash/goapp-sales:latest
+    container_name: goapp-sales
+    ports:
+      - 8082:8082
